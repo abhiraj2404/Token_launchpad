@@ -17,8 +17,22 @@ import {
   MINT_SIZE,
   TOKEN_PROGRAM_ID,
 } from "@solana/spl-token";
+import {
+  createInitializeMetadataPointerInstruction,
+  createInitializeMintInstruction,
+  ExtensionType,
+  getMintLen,
+  LENGTH_SIZE,
+  TOKEN_2022_PROGRAM_ID,
+  TYPE_SIZE,
+} from "@solana/spl-token";
+import {
+  createInitializeInstruction,
+  pack,
+  TokenMetadata,
+} from "@solana/spl-token-metadata";
 import { SOLANA_ENDPOINT } from "./config";
-import { TokenFormData, TokenMetadata } from "@/types";
+import { TokenFormData, TokenMetadata as TokenMetadataType } from "@/types";
 
 export const getConnection = () => new Connection(SOLANA_ENDPOINT, "confirmed");
 
@@ -27,7 +41,7 @@ export async function creatingATA(
   mint: PublicKey,
   owner: PublicKey,
   wallet: any,
-  programId = TOKEN_PROGRAM_ID,
+  programId = TOKEN_2022_PROGRAM_ID,
   associatedTokenProgramId = ASSOCIATED_TOKEN_PROGRAM_ID,
   allowOwnerOffCurve = false
 ): Promise<PublicKey> {
@@ -68,7 +82,7 @@ export async function mintTo(
   authority: Signer | PublicKey,
   amount: number | bigint,
   multiSigners: Signer[] = [],
-  programId = TOKEN_PROGRAM_ID
+  programId = TOKEN_2022_PROGRAM_ID
 ): Promise<TransactionSignature> {
   function getSigners(
     signerOrMultisig: Signer | PublicKey,
@@ -109,40 +123,99 @@ export async function mintTo(
 export const createToken = async (
   { name, symbol, decimals, initialMintAmount }: TokenFormData,
   wallet: any
-): Promise<TokenMetadata> => {
+): Promise<TokenMetadataType> => {
   const connection = getConnection();
 
   //creating mint account
   const mintKeypair = Keypair.generate();
-  console.log(mintKeypair);
-  console.log(wallet);
-  const lamports = await getMinimumBalanceForRentExemptMint(connection);
 
-  const transaction = new Transaction().add(
+  //metadata
+  const metadata: TokenMetadata = {
+    mint: mintKeypair.publicKey,
+    name: name,
+    symbol: symbol,
+    uri: "https://clipify-rho.vercel.app/metadata.json",
+    additionalMetadata: [
+      [
+        "image",
+        "https://plus.unsplash.com/premium_vector-1721232058816-d6565569bb03"
+      ]
+    ],
+  };
+  const mintLen = getMintLen([ExtensionType.MetadataPointer]);
+  const metadataLen = TYPE_SIZE + LENGTH_SIZE + pack(metadata).length;
+  const mintLamports = await connection.getMinimumBalanceForRentExemption(
+    mintLen + metadataLen
+  );
+  const mintTransaction = new Transaction().add(
     SystemProgram.createAccount({
       fromPubkey: wallet.publicKey,
       newAccountPubkey: mintKeypair.publicKey,
-      space: MINT_SIZE,
-      lamports,
-      programId: TOKEN_PROGRAM_ID,
+      space: mintLen,
+      lamports: mintLamports,
+      programId: TOKEN_2022_PROGRAM_ID,
     }),
-    createInitializeMint2Instruction(
+    createInitializeMetadataPointerInstruction(
+      mintKeypair.publicKey,
+      wallet.publicKey,
+      mintKeypair.publicKey,
+      TOKEN_2022_PROGRAM_ID
+    ),
+    createInitializeMintInstruction(
       mintKeypair.publicKey,
       decimals,
       wallet.publicKey,
-      wallet.publicKey,
-      TOKEN_PROGRAM_ID
-    )
+      null,
+      TOKEN_2022_PROGRAM_ID
+    ),
+    createInitializeInstruction({
+      programId: TOKEN_2022_PROGRAM_ID,
+      mint: mintKeypair.publicKey,
+      metadata: mintKeypair.publicKey,
+      name: metadata.name,
+      symbol: metadata.symbol,
+      uri: metadata.uri,
+      mintAuthority: wallet.publicKey,
+      updateAuthority: wallet.publicKey,
+    })
   );
-
-  transaction.feePayer = wallet.publicKey;
-  transaction.recentBlockhash = (
+  mintTransaction.feePayer = wallet.publicKey;
+  mintTransaction.recentBlockhash = (
     await connection.getLatestBlockhash()
   ).blockhash;
-  transaction.partialSign(mintKeypair);
+  mintTransaction.partialSign(mintKeypair);
 
-  await wallet.sendTransaction(transaction, connection);
+  console.log("mintTransaction", mintTransaction);
+  await wallet.sendTransaction(mintTransaction, connection);
   console.log(`Token mint created at ${mintKeypair.publicKey.toBase58()}`);
+
+  // const lamports = await getMinimumBalanceForRentExemptMint(connection);
+
+  // const transaction = new Transaction().add(
+  //   SystemProgram.createAccount({
+  //     fromPubkey: wallet.publicKey,
+  //     newAccountPubkey: mintKeypair.publicKey,
+  //     space: MINT_SIZE,
+  //     lamports,
+  //     programId: TOKEN_PROGRAM_ID,
+  //   }),
+  //   createInitializeMint2Instruction(
+  //     mintKeypair.publicKey,
+  //     decimals,
+  //     wallet.publicKey,
+  //     wallet.publicKey,
+  //     TOKEN_PROGRAM_ID
+  //   )
+  // );
+
+  // transaction.feePayer = wallet.publicKey;
+  // transaction.recentBlockhash = (
+  //   await connection.getLatestBlockhash()
+  // ).blockhash;
+  // transaction.partialSign(mintKeypair);
+
+  // await wallet.sendTransaction(transaction, connection);
+  // console.log(`Token mint created at ${mintKeypair.publicKey.toBase58()}`);
 
   //creatin associated token account
   const tokenAccount = await creatingATA(

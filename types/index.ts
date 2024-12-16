@@ -19,3 +19,14 @@ export interface TokenMetadata {
   decimals: number;
   initialMintAmount: number;
 }
+
+export interface TokenData {
+  mint: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+  totalSupply: number;
+  imageUrl: string;
+  mintAuthority: string;
+  freezeAuthority: string | null;
+}
