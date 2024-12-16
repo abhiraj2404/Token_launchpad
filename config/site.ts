@@ -13,6 +13,10 @@ export const siteConfig = {
       href: "/create",
     },
     {
+      label: "Mint Tokens",
+      href: "/mint",
+    },
+    {
       label: "Airdrop",
       href: "/airdrop",
     },
@@ -25,6 +29,10 @@ export const siteConfig = {
     {
       label: "Create Token",
       href: "/create",
+    },
+    {
+      label: "Mint Tokens",
+      href: "/mint",
     },
     {
       label: "Airdrop",

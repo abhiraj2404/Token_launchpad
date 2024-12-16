@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@nextui-org/button";
+import { getConnection } from "@/config/solana";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 export function AirdropCard() {
   const { publicKey } = useWallet();
@@ -11,8 +13,22 @@ export function AirdropCard() {
 
   const handleAirdrop = async () => {
     setIsLoading(true);
-    // Airdrop logic will be implemented later
-    setTimeout(() => setIsLoading(false), 1000);
+
+    if (!publicKey) return;
+
+    try {
+      const connection = getConnection();
+      const signature = await connection.requestAirdrop(
+        publicKey,
+        LAMPORTS_PER_SOL
+      );
+      await connection.confirmTransaction(signature);
+      alert("Airdrop successful!, check your balance");
+    } catch (error) {
+      alert("Failed to request airdrop, some error occured");
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -40,9 +56,6 @@ export function AirdropCard() {
             onClick={handleAirdrop}
             isLoading={isLoading}
             className="w-full"
-            startContent={
-              isLoading ? <Loader2 className="animate-spin" /> : null
-            }
           >
             {isLoading ? "Requesting Airdrop..." : "Request Airdrop"}
           </Button>

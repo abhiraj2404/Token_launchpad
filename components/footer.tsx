@@ -48,7 +48,7 @@ export function Footer() {
                   href="/airdrop"
                   className="text-foreground/60 hover:text-foreground"
                 >
-                  Get Test SOL
+                  Airdrop
                 </Link>
               </li>
             </ul>

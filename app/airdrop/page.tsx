@@ -1,5 +1,5 @@
 "use client";
-import { AirdropCard } from "@/components/Airdropcard";
+import { AirdropCard } from "@/components/Airdrop/Airdropcard";
 import { WalletStatus } from "@/components/WalletStatus";
 import { useWallet } from "@solana/wallet-adapter-react";
 import React from "react";

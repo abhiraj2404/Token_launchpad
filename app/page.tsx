@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@nextui-org/link";
-import FeatureCard from "@/components/FeatureCard";
+import FeatureCard from "@/components/Home/FeatureCard";
 import { Button } from "@nextui-org/button";
 import { Coins, Rocket, Shield, Zap } from "lucide-react";
 import { Card } from "@nextui-org/card";
