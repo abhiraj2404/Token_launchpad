@@ -32,7 +32,7 @@ export function AirdropCard() {
   };
 
   return (
-    <div className="bg-content1 border border-divider rounded-lg shadow-sm">
+    <div className="bg-content1 border border-divider rounded-lg shadow-sm max-w-xl mx-auto">
       <div className="p-6">
         <div className="mb-6">
           <h3 className="text-lg font-medium text-foreground mb-2">

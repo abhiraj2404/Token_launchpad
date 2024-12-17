@@ -24,7 +24,7 @@ function MintPage() {
             isPressable
           >
             <p className="text-foreground/70 text-center w-full">
-              Please connect your wallet to create a token
+              Please connect your wallet to mint tokens.
             </p>
           </Card>
         ) : (

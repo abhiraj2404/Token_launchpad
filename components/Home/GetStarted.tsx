@@ -1,5 +1,6 @@
 import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
+import { Link } from "@nextui-org/link";
 import { Rocket, Coins } from "lucide-react";
 
 export function GetStarted() {
@@ -18,6 +19,7 @@ export function GetStarted() {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button
+                as={Link}
                 href="/create"
                 color="primary"
                 size="lg"
@@ -26,6 +28,7 @@ export function GetStarted() {
                 Create Token
               </Button>
               <Button
+                as={Link}
                 href="/airdrop"
                 variant="bordered"
                 color="primary"

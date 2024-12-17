@@ -8,7 +8,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
@@ -18,9 +18,15 @@ import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon } from "@/components/icons";
 import { Coins } from "lucide-react";
-const WalletMultiButton = dynamic(() => import('@solana/wallet-adapter-react-ui').then((mod) => mod.WalletMultiButton), {
-  ssr: false,
-});
+const WalletMultiButton = dynamic(
+  () =>
+    import("@solana/wallet-adapter-react-ui").then(
+      (mod) => mod.WalletMultiButton
+    ),
+  {
+    ssr: false,
+  }
+);
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
@@ -61,9 +67,7 @@ export const Navbar = () => {
         </ul>
 
         <NavbarItem className="hidden md:flex">
-        
-            <WalletMultiButton className="!bg-indigo-600 hover:!bg-indigo-700" />
-         
+          <WalletMultiButton className="!bg-indigo-600 hover:!bg-indigo-700" />
         </NavbarItem>
         <NavbarItem className="hidden sm:flex gap-2">
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
@@ -85,21 +89,12 @@ export const Navbar = () => {
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href="#"
-                size="lg"
-              >
+              <Link color="foreground" href={item.href} size="lg">
                 {item.label}
               </Link>
             </NavbarMenuItem>
           ))}
+          <WalletMultiButton className="!bg-indigo-600 hover:!bg-indigo-700" />
         </div>
       </NavbarMenu>
     </NextUINavbar>
