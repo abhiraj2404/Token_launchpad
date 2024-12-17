@@ -37,7 +37,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/my-tokens"
+                  href="/mint"
                   className="text-foreground/60 hover:text-foreground"
                 >
                   My Tokens

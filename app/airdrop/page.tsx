@@ -1,6 +1,7 @@
 "use client";
 import { AirdropCard } from "@/components/Airdrop/Airdropcard";
 import { WalletStatus } from "@/components/WalletStatus";
+import { Card } from "@nextui-org/card";
 import { useWallet } from "@solana/wallet-adapter-react";
 import React from "react";
 
@@ -17,9 +18,16 @@ function AirdropPage() {
         </p>
       </div>
 
-      <div className="max-w-md mx-auto">
+      <div className=" mx-auto">
         {!connected ? (
-          <WalletStatus message="Connect your wallet to request an airdrop" />
+          <Card
+            className="py-10 px-28 text-center bg-content1 w-fit mx-auto"
+            isPressable
+          >
+            <p className="text-foreground/70 text-center w-full">
+              Please connect your wallet to create a token
+            </p>
+          </Card>
         ) : (
           <AirdropCard />
         )}

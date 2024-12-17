@@ -87,16 +87,16 @@ const features: Feature[] = [
   },
   {
     icon: <Plus className="h-6 w-6 text-primary" />,
-    title: "Create Token",
+    title: "Create Tokens",
     description:
       "Configure your token with custom name, symbol, and initial supply",
     link: "/create",
   },
   {
     icon: <Coins className="h-6 w-6 text-primary" />,
-    title: "Manage Token",
+    title: "Manage Tokens",
     description: "View your tokens and mint additional supply whenever needed",
-    link: "/my-tokens",
+    link: "/mint",
   },
   {
     icon: <Waves className="h-6 w-6 text-primary" />,

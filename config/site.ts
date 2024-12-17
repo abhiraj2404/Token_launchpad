@@ -13,7 +13,7 @@ export const siteConfig = {
       href: "/create",
     },
     {
-      label: "Mint Tokens",
+      label: "My Tokens",
       href: "/mint",
     },
     {

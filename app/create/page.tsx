@@ -25,8 +25,11 @@ function CreatetokenPage() {
 
       <div className="max-w-3xl mx-auto">
         {!connected ? (
-          <Card className="p-6 text-center bg-content1">
-            <p className="text-foreground/70 mb-4">
+          <Card
+            className="py-10 px-28 text-center bg-content1 w-fit mx-auto"
+            isPressable
+          >
+            <p className="text-foreground/70 text-center w-full">
               Please connect your wallet to create a token
             </p>
           </Card>

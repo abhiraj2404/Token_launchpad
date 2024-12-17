@@ -10,7 +10,7 @@ export function WalletStatus({ message }: WalletStatusProps) {
   return (
     <Card>
       <div className="p-6 text-center">
-        <p className="text-gray-600 mb-4">{message}</p>
+        <p className="text-foreground/70 mb-4">{message}</p>
       </div>
     </Card>
   );
