@@ -122,25 +122,20 @@ export async function mintTo(
 
 export const createToken = async (
   { name, symbol, decimals, initialMintAmount }: TokenFormData,
-  wallet: any
+  wallet: any , uri: string | null 
 ): Promise<TokenMetadataType> => {
   const connection = getConnection();
 
   //creating mint account
   const mintKeypair = Keypair.generate();
-
+  console.log("metadataURI", uri);
   //metadata
   const metadata: TokenMetadata = {
     mint: mintKeypair.publicKey,
     name: name,
     symbol: symbol,
-    uri: "https://clipify-rho.vercel.app/metadata.json",
-    additionalMetadata: [
-      [
-        "image",
-        "https://plus.unsplash.com/premium_vector-1721232058816-d6565569bb03"
-      ]
-    ],
+    uri: uri as string,
+    additionalMetadata: []
   };
   const mintLen = getMintLen([ExtensionType.MetadataPointer]);
   const metadataLen = TYPE_SIZE + LENGTH_SIZE + pack(metadata).length;

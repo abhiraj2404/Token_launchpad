@@ -23,7 +23,7 @@ function CreatetokenPage() {
         </p>
       </div>
 
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         {!connected ? (
           <Card className="p-6 text-center bg-content1">
             <p className="text-foreground/70 mb-4">

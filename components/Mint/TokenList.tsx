@@ -8,18 +8,20 @@ import {
   TOKEN_2022_PROGRAM_ID,
 } from "@solana/spl-token";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react";
 import tokenmint from "@/data/TokenMints.json";
 import { MintTokenModal } from "./MintTokenModal";
 import TokenCard from "./TokenCard";
 
-async function fetchUserTokens(): Promise<TokenData[]> {
+async function fetchUserTokens(userPublicKey: any): Promise<TokenData[]> {
   const connection = getConnection();
   const tokens: TokenData[] = [];
-  const data = JSON.parse(JSON.stringify(tokenmint));
-  const mintAddresses: any = data.mintAddresses;
+  // const data = JSON.parse(JSON.stringify(tokenmint));
 
+  const response = await fetch("/api/tokenMints");
+  const data = await response.json();
+  const mintAddresses = data.addresses;
   for (const mintAddress of mintAddresses) {
     try {
       const mintPubkey = new PublicKey(mintAddress);
@@ -29,28 +31,27 @@ async function fetchUserTokens(): Promise<TokenData[]> {
         "confirmed",
         TOKEN_2022_PROGRAM_ID
       );
-      console.log(metadata);
       const mintInfo = await getMint(
         connection,
         mintPubkey,
         "confirmed",
         TOKEN_2022_PROGRAM_ID
       );
-      console.log(mintInfo);
       const uriResponse = await fetch(metadata?.uri as string);
       const uriData = await uriResponse.json();
-      console.log(uriData);
 
-      tokens.push({
-        mint: mintAddress,
-        name: metadata?.name || "Unknown",
-        symbol: metadata?.symbol || "Unknown",
-        decimals: mintInfo.decimals,
-        totalSupply: Number(mintInfo.supply) / Math.pow(10, mintInfo.decimals),
-        imageUrl: uriData?.image || "",
-        mintAuthority: mintInfo.mintAuthority?.toBase58() || "None",
-        freezeAuthority: metadata?.updateAuthority?.toBase58() || null,
-      });
+      if (mintInfo.mintAuthority?.toBase58() == userPublicKey)
+        tokens.push({
+          mint: mintAddress,
+          name: metadata?.name || "Unknown",
+          symbol: metadata?.symbol || "Unknown",
+          decimals: mintInfo.decimals,
+          totalSupply:
+            Number(mintInfo.supply) / Math.pow(10, mintInfo.decimals),
+          imageUrl: uriData?.image || "",
+          mintAuthority: mintInfo.mintAuthority?.toBase58() || "None",
+          freezeAuthority: metadata?.updateAuthority?.toBase58() || null,
+        });
     } catch (error) {
       console.error(`Error fetching token ${mintAddress}:`, error);
     }
@@ -60,7 +61,7 @@ async function fetchUserTokens(): Promise<TokenData[]> {
 }
 
 export function TokenList() {
-  const { publicKey } = useWallet();
+  const wallet = useWallet();
   const [tokens, setTokens] = useState<TokenData[]>([]);
   const [selectedToken, setSelectedToken] = useState<TokenData | null>(null);
   const [showMintModal, setShowMintModal] = useState(false);
@@ -68,9 +69,9 @@ export function TokenList() {
 
   useEffect(() => {
     async function loadTokens() {
-      if (publicKey) {
+      if (wallet.publicKey) {
         try {
-          const userTokens = await fetchUserTokens();
+          const userTokens = await fetchUserTokens(wallet.publicKey);
           setTokens(userTokens);
         } catch (error) {
           console.error("Error loading tokens:", error);
@@ -81,7 +82,7 @@ export function TokenList() {
     }
 
     loadTokens();
-  }, [publicKey]);
+  }, [wallet.publicKey]);
 
   const handleMint = (token: TokenData) => {
     setSelectedToken(token);
@@ -109,7 +110,7 @@ export function TokenList() {
       {tokens.length === 0 && (
         <div className="text-center py-12 bg-content2 rounded-lg">
           <p className="text-foreground/60">
-            You haven't created any tokens yet.
+            You haven&apos;t created any tokens yet.
           </p>
         </div>
       )}
