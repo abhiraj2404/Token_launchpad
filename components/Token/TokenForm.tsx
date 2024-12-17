@@ -158,7 +158,10 @@ function TokenForm() {
   return (
     <>
       <Card className="p-6 w-full" shadow="sm">
-        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row *:w-1/2 gap-6 space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col md:flex-row md:*:w-1/2 gap-6 space-y-6"
+        >
           {/* Image Upload Section */}
           <button
             className="border-2 border-dashed rounded-lg text-center cursor-pointer"
