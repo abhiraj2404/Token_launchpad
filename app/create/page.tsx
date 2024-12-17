@@ -10,7 +10,7 @@ function CreatetokenPage() {
   const { connected } = useWallet();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[47vh]">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[47vh] mb-24">
       <div className="text-center mb-12">
         <div className="flex justify-center mb-4">
           <Coins className="h-12 w-12 text-primary" />
