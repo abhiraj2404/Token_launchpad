@@ -6,7 +6,7 @@ import { Card } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import React, { useRef, useState } from "react";
 import TokenCreationSuccessModal from "./TokenCreationSuccessModal";
-import { createToken } from "@/config/solana";
+import { createToken, getConnection } from "@/config/solana";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Upload } from "lucide-react";
 
@@ -116,6 +116,18 @@ function TokenForm() {
     setIsLoading(true);
 
     try {
+      const connection = getConnection();
+      if (wallet.publicKey) {
+        const balance = await connection.getBalance(wallet.publicKey);
+        const balanceInSOL = balance / 1e9;
+        if (balanceInSOL < 0.01) {
+          alert(
+            "Insufficient balance, transactions might fail, please request an airdrop"
+          );
+          setIsLoading(false);
+          return;
+        }
+      }
       setLoadingText("Uploading metadata files...");
       const imageURL = await uploadImageFile();
       if (imageURL) {
