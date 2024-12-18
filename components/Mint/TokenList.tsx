@@ -10,7 +10,6 @@ import {
 import { useWallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react";
-import tokenmint from "@/data/TokenMints.json";
 import { MintTokenModal } from "./MintTokenModal";
 import TokenCard from "./TokenCard";
 
@@ -114,7 +113,7 @@ export function TokenList() {
           </p>
         </div>
       )}
-  
+
       <MintTokenModal
         isOpen={showMintModal}
         token={selectedToken}

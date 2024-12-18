@@ -1,53 +1,171 @@
-# Next.js & NextUI Template
+# Solana Token Launchpad 🚀
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+![Hero Section](./public/Launchpad.png)
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+A modern, user-friendly platform for creating and managing custom tokens on the Solana blockchain. Launch your own SPL tokens in minutes with a beautiful UI and seamless wallet integration.
 
-## Technologies Used
+## ✨ Features
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+### 🎯 Token Creation
 
-## How to Use
+- Create custom SPL tokens with configurable parameters
+- Set token name, symbol, and initial supply
+- Upload and store token images on IPFS via Pinata
+- Automatic mint authority assignment to creator's wallet
 
-### Use the template with create-next-app
+### 💰 Token Management
 
-To create a new project based on this template using `create-next-app`, run the following command:
+- View all tokens created by your wallet
+- Mint additional tokens as needed
+- Track token supply and distribution
+- Decentralized image storage on IPFS
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
+### 🌟 Devnet Integration
+
+- Request SOL airdrops for testing
+- Deploy tokens on Solana Devnet
+- Test token functionality before mainnet launch
+
+### 🎨 Modern UI/UX
+
+- Responsive design for all devices
+- Dark/Light mode support
+- Seamless wallet connection
+- Real-time transaction feedback
+
+## 🛠 Technology Stack
+
+### Blockchain & Web3
+
+- Solana Web3.js
+- SPL Token Program
+- Solana Wallet Adapter
+
+### Frontend
+
+- React 18
+- TypeScript
+- NextUI Components
+- TailwindCSS
+- Lucide Icons
+
+### Storage & Database
+
+- IPFS via Pinata
+- MongoDB Atlas
+
+## 📦 Project Structure
+
+```
+\
+├── app/               # Route Pages
+│   ├── airdrop/       # Airdrop page
+│   ├── create/        # Create token page
+│   ├── mint/          # Mint tokens page
+│   └── api/           # backend code
+├── components/        # React components for pages
+├── config/            # siteconfig and backend func
+│   ├── solana.ts      # Solana integration
+│   └── site.ts        # Site config
+├── models/            # Mongodb data model
+├── types/             # Typescript types
+└── utils/             # util files for connections
 ```
 
-### Install dependencies
+## 🚀 Getting Started
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- A Solana wallet (e.g., Phantom)
+- MongoDB Atlas account
+- Pinata account for IPFS
+
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+MONGODB_URI=your_mongodb_uri
+PINATA_JWT=your_pinata_jwt
+NEXT_PINATA_GATEWAY_URL=your_pinata_gateway_url
+```
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/abhiraj2404/Token_launchpad.git
+cd token_launchpad
+```
+
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Run the development server
+3. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-### Setup pnpm (optional)
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+### Building for Production
 
 ```bash
-public-hoist-pattern[]=*@nextui-org/*
+npm run build
 ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+The build output will be in the `dist` directory.
 
-## License
+## 📱 Usage
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+1. **Connect Wallet**
+
+   - Click "Connect Wallet" in the navbar
+   - Select your Solana wallet (e.g., Phantom)
+   - Approve the connection
+
+2. **Get Test SOL**
+
+   - Navigate to the Airdrop page
+   - Click "Request Airdrop"
+   - Receive 1 SOL on Devnet
+
+3. **Create Token**
+
+   - Go to Create Token page
+   - Fill in token details
+   - Upload token image
+   - Click "Launch Token"
+
+4. **Manage Tokens**
+   - Visit My Tokens page
+   - View created tokens
+   - Mint additional supply
+   - Track token details
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📧 Creator
+
+Abhiraj Chauhan - [@abhiraj_2404](https://x.com/abhiraj_2404)
+
+Project Link - [https://solanatokenlaunchpad.vercel.app](https://solanatokenlaunchpad.vercel.app)
