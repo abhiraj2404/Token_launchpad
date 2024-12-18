@@ -20,7 +20,7 @@ function AirdropPage() {
       <div className=" mx-auto">
         {!connected ? (
           <Card
-            className="py-10 px-28 text-center bg-content1 w-fit mx-auto "
+            className="py-10 px-12 md:px-28 text-center bg-content1 w-fit mx-auto "
             isPressable
           >
             <p className="text-foreground/70 text-center w-full">
