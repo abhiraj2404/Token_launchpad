@@ -49,7 +49,7 @@ export function NetworkSelector() {
             startContent={<Network className="h-4 w-4" />}
             description="Production network"
             className="text-success"
-            href="http://localhost:3000"
+            href="https://solanatokenlaunchpadmainnet.vercel.app/"
             target="_blank"
           >
             Mainnet
