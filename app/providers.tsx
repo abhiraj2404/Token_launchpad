@@ -21,7 +21,6 @@ import * as React from "react";
 import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { SOLANA_ENDPOINT } from "@/config/config";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -38,9 +37,9 @@ declare module "@react-types/shared" {
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   const router = useRouter();
-
+  console.log(process.env.NEXT_PUBLIC_SOLANA_ENDPOINT);
   return (
-    <ConnectionProvider endpoint={SOLANA_ENDPOINT}>
+    <ConnectionProvider endpoint={process.env.NEXT_PUBLIC_SOLANA_ENDPOINT as string }>
       <WalletProvider wallets={[]} autoConnect>
         <WalletModalProvider>
           <NextUIProvider navigate={router.push}>

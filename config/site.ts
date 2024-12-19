@@ -1,5 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
+const selectedNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK as
+  | "devnet"
+  | "mainnet";
+
 export const siteConfig = {
   name: "Solana Token Launchpad",
   description: "Launch your token on the Solana blockchain in minutes.",
@@ -16,10 +20,9 @@ export const siteConfig = {
       label: "My Tokens",
       href: "/mint",
     },
-    {
-      label: "Airdrop",
-      href: "/airdrop",
-    },
+    ...(selectedNetwork == "devnet"
+      ? [{ label: "Airdrop", href: "/airdrop" }]
+      : []), // Add 'Airdrop' conditionally
   ],
   navMenuItems: [
     {
@@ -34,10 +37,9 @@ export const siteConfig = {
       label: "Mint Tokens",
       href: "/mint",
     },
-    {
-      label: "Airdrop",
-      href: "/airdrop",
-    },
+    ...(selectedNetwork == "devnet"
+      ? [{ label: "Airdrop", href: "/airdrop" }]
+      : []),
   ],
   links: {
     github: "https://github.com/abhiraj2404/Token_launchpad",

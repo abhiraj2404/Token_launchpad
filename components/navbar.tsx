@@ -29,6 +29,7 @@ const WalletMultiButton = dynamic(
 );
 
 import "@solana/wallet-adapter-react-ui/styles.css";
+import { NetworkSelector } from "./navbar/NetworkSelector";
 
 export const Navbar = () => {
   return (
@@ -49,7 +50,7 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="hidden lg:flex gap-4 justify-center ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -64,6 +65,7 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
+          <NetworkSelector />
         </ul>
 
         <NavbarItem className="hidden md:flex">
@@ -94,6 +96,7 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))}
+          <NetworkSelector />
           <WalletMultiButton className="!bg-indigo-600 hover:!bg-indigo-700" />
         </div>
       </NavbarMenu>

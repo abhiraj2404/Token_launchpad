@@ -31,10 +31,10 @@ import {
   pack,
   TokenMetadata,
 } from "@solana/spl-token-metadata";
-import { SOLANA_ENDPOINT } from "./config";
 import { TokenFormData, TokenMetadata as TokenMetadataType } from "@/types";
 
-export const getConnection = () => new Connection(SOLANA_ENDPOINT, "confirmed");
+export const getConnection = () =>
+  new Connection(process.env.NEXT_PUBLIC_SOLANA_ENDPOINT as string, "confirmed");
 
 export async function creatingATA(
   connection: Connection,
@@ -122,7 +122,8 @@ export async function mintTo(
 
 export const createToken = async (
   { name, symbol, decimals, initialMintAmount }: TokenFormData,
-  wallet: any , uri: string | null 
+  wallet: any,
+  uri: string | null
 ): Promise<TokenMetadataType> => {
   const connection = getConnection();
 
@@ -135,7 +136,7 @@ export const createToken = async (
     name: name,
     symbol: symbol,
     uri: uri as string,
-    additionalMetadata: []
+    additionalMetadata: [],
   };
   const mintLen = getMintLen([ExtensionType.MetadataPointer]);
   const metadataLen = TYPE_SIZE + LENGTH_SIZE + pack(metadata).length;

@@ -98,13 +98,16 @@ export function TokenList() {
 
   return (
     <div className="space-y-6">
-      {tokens.map((token) => (
-        <TokenCard
-          key={token.mint}
-          token={token}
-          onMint={() => handleMint(token)}
-        />
-      ))}
+      {tokens
+        .slice()
+        .reverse()
+        .map((token) => (
+          <TokenCard
+            key={token.mint}
+            token={token}
+            onMint={() => handleMint(token)}
+          />
+        ))}
 
       {tokens.length === 0 && (
         <div className="text-center py-12 bg-content2 rounded-lg">

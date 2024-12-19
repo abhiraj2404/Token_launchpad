@@ -90,6 +90,8 @@ Create a `.env` file in the root directory:
 MONGODB_URI=your_mongodb_uri
 PINATA_JWT=your_pinata_jwt
 NEXT_PINATA_GATEWAY_URL=your_pinata_gateway_url
+NEXT_PUBLIC_SOLANA_ENDPOINT=your_rpc_node_endpoint
+NEXT_PUBLIC_SOLANA_NETWORK=your_network ( "devent" | "mainnet" )
 ```
 
 ### Installation
