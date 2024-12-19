@@ -50,7 +50,6 @@ export function NetworkSelector() {
             description="Production network"
             className="text-success"
             href="https://solanatokenlaunchpadmainnet.vercel.app/"
-            target="_blank"
           >
             Mainnet
           </DropdownItem>
@@ -72,7 +71,6 @@ export function NetworkSelector() {
             description="Use for testing"
             className="text-warning"
             href="https://solanatokenlaunchpad.vercel.app/"
-            target="_blank"
           >
             Devnet
           </DropdownItem>
