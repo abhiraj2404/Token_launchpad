@@ -17,12 +17,14 @@ interface TokenCreationSuccessProps {
   tokenData: TokenMetadata;
 }
 
+const selectedNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK;
+
 export default function TokenCreationSuccessModal({
   isOpen,
   onClose,
   tokenData,
 }: TokenCreationSuccessProps) {
-  const explorerUrl = `https://explorer.solana.com/address/${tokenData.mint}?cluster=devnet`;
+  const explorerUrl = `https://explorer.solana.com/address/${tokenData.mint}?cluster=${selectedNetwork == "mainnet" ? "mainnet-beta" : "devnet"}`;
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const handleCopy = async (value: string, field: string) => {

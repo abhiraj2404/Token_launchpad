@@ -2,6 +2,8 @@ import { siteConfig } from "@/config/site";
 import { Coins, Github, Twitter } from "lucide-react";
 import Link from "next/link";
 
+const selectedNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK;
+
 export function Footer() {
   return (
     <footer className="bg-content1 border-t border-divider">
@@ -43,14 +45,36 @@ export function Footer() {
                   My Tokens
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/airdrop"
-                  className="text-foreground/60 hover:text-foreground"
-                >
-                  Airdrop
-                </Link>
-              </li>
+
+              {selectedNetwork == "devnet" ? (
+                <>
+                  <li>
+                    <Link
+                      href="/airdrop"
+                      className="text-foreground/60 hover:text-foreground"
+                    >
+                      Airdrop
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="https://solanatokenlaunchpadmainnet.vercel.app"
+                      className="text-foreground/60 hover:text-foreground"
+                    >
+                      Mainnet
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link
+                    href="https://solanatokenlaunchpad.vercel.app"
+                    className="text-foreground/60 hover:text-foreground"
+                  >
+                    Devnet
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 
