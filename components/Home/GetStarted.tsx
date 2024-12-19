@@ -3,6 +3,8 @@ import { Card } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { Rocket, Coins } from "lucide-react";
 
+const selectedNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK;
+
 export function GetStarted() {
   return (
     <div className="bg-content2 dark:bg-content1">
@@ -29,13 +31,13 @@ export function GetStarted() {
               </Button>
               <Button
                 as={Link}
-                href="/airdrop"
+                href={selectedNetwork == "devnet" ? "/airdrop" : "/mint"}
                 variant="bordered"
                 color="primary"
                 size="lg"
                 endContent={<Coins className="ml-2" size={20} />}
               >
-                Get Test SOL
+                {selectedNetwork == "devnet" ? "Get Test SOL" : "Mint Tokens"}
               </Button>
             </div>
           </div>

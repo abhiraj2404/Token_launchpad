@@ -3,6 +3,8 @@ import { Chip } from "@nextui-org/chip";
 import { Link } from "@nextui-org/link";
 import { Wallet, Plus, Coins, Waves } from "lucide-react";
 
+const selectedNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK;
+
 export function MainFeatures() {
   return (
     <div className="bg-content2 dark:bg-content1">
@@ -80,10 +82,10 @@ function FeatureCard({ feature, index }: { feature: Feature; index: number }) {
 const features: Feature[] = [
   {
     icon: <Wallet className="h-6 w-6 text-primary" />,
-    title: "Get Test SOL",
+    title: selectedNetwork == "devnet" ? "Get Test SOL" : "Connect Wallet",
     description:
-      "Start with an airdrop of 1 SOL to test your token on Solana Devnet",
-    link: "/airdrop",
+      "Connect your solana wallet to do transactions on the platform.",
+    link: selectedNetwork == "devnet" ? "/airdrop" : "/",
   },
   {
     icon: <Plus className="h-6 w-6 text-primary" />,

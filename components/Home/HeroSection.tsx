@@ -3,6 +3,7 @@ import { Coins, Rocket } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+const selectedNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK;
 function HeroSection() {
   return (
     <div className="relative">
@@ -35,12 +36,12 @@ function HeroSection() {
               </Button>
               <Button
                 as={Link}
-                href="/airdrop"
+                href={selectedNetwork == "devnet" ? "/airdrop" : "/mint"}
                 variant="bordered"
                 size="lg"
                 color="primary"
               >
-                Get Test SOL
+                {selectedNetwork == "devnet" ? "Get Test SOL" : "Mint Tokens"}
               </Button>
             </div>
           </div>
